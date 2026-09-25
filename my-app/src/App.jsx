@@ -1,6 +1,9 @@
 import React from 'react';
 import Sidebar from './Components/Sidebar';
+import Header from './Components/Header';
+import MainContent from './Components/MainContent';
 import './App.css';
+
 
 function App() {
   return (
@@ -12,11 +15,17 @@ function App() {
         selectedTag={null} 
         onSelectTag={(tag) => console.log(tag)} 
       />
-
-      <main className="main-content">
-      </main>
+      <div className="main-wrapper">
+        <Header />
+        <MainContent />
+        <main className="main-content">
+          {/* Main content goes here */}
+        </main>
+      </div>
     </div>
   );
 }
+
+
 
 export default App;

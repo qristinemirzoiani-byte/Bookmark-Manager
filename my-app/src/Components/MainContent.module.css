@@ -1,0 +1,59 @@
+/* Main content container */
+.mainContent {
+  flex: 1;
+  padding: 32px 32px 64px 32px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Bookmark header */
+.bookmarkHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* title "All bookmarks" */
+.title {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Sort by button */
+.sortButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0b1f22;
+  color: #ffffff;
+  border: 1px solid #1e4549;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.sortButton:hover {
+  background-color: #143538;
+  border-color: #2ee59d;
+}
+
+/* Sort icon */
+.sortIcon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* Bookmark grid */
+.bookmarkGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}

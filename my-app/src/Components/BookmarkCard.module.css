@@ -1,0 +1,152 @@
+/* Card Container */
+.card {
+  background-color: #001f1f; /* Figma: neutral/800 (#001F1F) */
+  border: 1px solid #143538;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 2px 4px rgba(21, 21, 21, 0.06);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  border-color: #1e4549;
+}
+
+/* 1. Header  */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.siteInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.siteTitle {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 2px 0;
+}
+
+.siteUrl {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.moreButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dotsIcon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.moreButton:hover .dotsIcon {
+  opacity: 1;
+}
+
+/* 2. description */
+.description {
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background-color: #0b2628;
+  color: #2ee59d;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid #143538;
+}
+
+/* 4. Footer  */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #143538;
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+/* left  */
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.statIcon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  opacity: 0.7;
+}
+
+/* right button */
+.pinButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.pinIcon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.pinButton:hover .pinIcon {
+  opacity: 1;
+}

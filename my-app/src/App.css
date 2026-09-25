@@ -1,0 +1,15 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #071719; 
+}
+
+.main-wrapper {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  padding: 24px 32px;
+}
