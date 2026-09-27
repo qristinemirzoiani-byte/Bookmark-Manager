@@ -1,15 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #001414;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden; /* მთლიან ფანჯარას არ ჰქონდეს გარე სქროლი */
+}
+
+/* მთავარი კონტეინერი: იკავებს ზუსტად ეკრანის სიმაღლეს (100vh) */
 .app-layout {
   display: flex;
-  min-height: 100vh;
-  background-color: #071719; 
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
+/* მარჯვენა მხარე (Header + MainContent) */
 .main-wrapper {
-  flex: 1; 
+  flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* რომ Header არასდროს აიწიოს ზემოთ */
 }
 
-.main-content {
-  padding: 24px 32px;
+/* ✨ ლამაზი, წვრილი და მუქი სქროლი (მახინჯი ნაცრისფერის ნაცვლად) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #001414;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #143538;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2ee59d;
 }

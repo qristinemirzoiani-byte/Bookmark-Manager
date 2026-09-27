@@ -38,7 +38,7 @@ function BookmarkCard({ bookmark }) {
         </p>
         <div className= {styles.tags}>
                 {bookmark.tags.map((tag, index) => (
-        <span key={index} className={styles.tag}>{tag}</span>
+        <span key={tag} className={styles.tag}>{tag}</span>
     ))}
             
         </div>

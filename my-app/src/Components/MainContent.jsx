@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './MainContent.module.css';
+import BookmarkList from './BookmarkList';
 import BookmarkCard from './BookmarkCard';
 import switchVertical from '../assets/switchVertical.png';
 
@@ -12,9 +13,17 @@ import tailwindLogo from '../assets/TailwindLogo.png';
 import devLogo from '../assets/DevLogo.png';
 import javascriptLogo from '../assets/JavaScriptLogo.png';
 import freecodeLogo from '../assets/FreeCodeLogo.png';
+import codepenLogo from '../assets/CodepenLogo.png';    
+import canuseLogo from '../assets/CanuseLogo.png';
+import cssgridgardenLogo from '../assets/CSSgridgardenLogo.png';
+import csstrickLogo from '../assets/CSStrickLogo.png';
+import stackoverflowLogo from '../assets/stackoverflowLogo.png';
+import smeshLogo from '../assets/smeshLogo.png';
+import githabLogo from '../assets/GithubLogo.png';
 
 function MainContent() {
-    const bookmark1 = {
+    const [bookmarks, setBookmarks] = useState([ 
+    {
     id: 1,
     logo: frontedlogo,
     title: "Frontend Mentor",
@@ -26,8 +35,8 @@ function MainContent() {
     createdAt: "15 Jan",
     isPinned: true,
     isArchived: false
-    };
-    const bookmark2 = {
+    },
+{
     id: 2,
     logo: MDNlogo,
     title: "MDN Web Docs",
@@ -39,8 +48,8 @@ function MainContent() {
     createdAt: "10 Jan",
     isPinned: true,
     isArchived: false
-    };
-    const bookmark3 = {
+    },
+{
     id: 3,
     logo: reactLogo,
     title: "React Docs",
@@ -52,8 +61,8 @@ function MainContent() {
     createdAt: "20 Feb",
     isPinned: false,
     isArchived: false
-  };
-  const bookmark4 = {
+},
+{
     id: 4,
     logo: cloudLogo,
     title: "Cloude",
@@ -65,8 +74,177 @@ function MainContent() {
     createdAt: "18  feb",
     isPinned: false,
     isArchived: false
-  };
-    return (
+},
+    
+{
+    id: 5,
+    logo: webLogo,
+    title: "Web.dev",
+    url: "web.dev",
+    description: "Guidance to build modern web experiences that work on any browser. Learn about web vitals, PWAs, and more.",  
+    tags: ["Performance", "Learning", "Tips"],
+    views: 15,
+    updatedAt: "16 Aug",
+    createdAt: "15 Feb",
+    isPinned: false,
+    isArchived: false
+},
+
+{
+    id: 6,
+    logo: tailwindLogo,
+    title: "Tailwind CSS",
+    url: "tailwindcss.com",
+    description: "A utility-first CSS framework for rapidly building modern websites without ever leaving your HTML.",
+    tags: ["CSS", "Framework", "Tools"],
+    views: 52,
+    updatedAt: "19 Sep",
+    createdAt: "12 Feb",
+    isPinned: false,
+    isArchived: false
+},
+
+{
+    id: 7,
+    logo: devLogo,
+    title: "Dev.to",
+    url: "dev.to",
+    description: "A constructive and inclusive social network for software developers. Share knowledge and grow your career.",
+    tags: [ "Community", "Learning", "Tips"],
+    views: 19,
+    updatedAt: "21 Sep",
+    createdAt: "10 Feb",
+    isPinned: false,
+    isArchived: false
+},
+
+{
+    id: 8,
+    logo: javascriptLogo,
+    title: "JavaScript.info",
+    url: "javascript.info",
+    description: "The Modern JavaScript Tutorial. How it’s done now. From the basics to advanced topics with simple, but detailed explanations.",
+    tags: ["Javascript", "Tutorial", "Learning"],
+    views: 41,
+    updatedAt: "15 Sep",
+    createdAt: "08 Feb",
+    isPinned: false,
+    isArchived: false
+},
+
+{
+    id: 9,
+    logo: freecodeLogo,
+    title: "FreeCodeCamp",
+    url: "freecodecamp.org",
+    description: "Learn to code for free. Build projects. Earn certifications. An open source community that helps you learn to code with free online courses and certifications.",
+    tags: ["Learning", "Practice", "Community"],
+    views: 28,
+    updatedAt: "30 Aug",
+    createdAt: "05 Feb",
+    isPinned: false,
+    isArchived: false
+},
+{
+    id: 10,
+    logo: codepenLogo,
+    title: "CodePen",
+    url: "codepen.io",
+    description: "An online code editor and social development environment for front-end designers and developers.",
+    tags: ["Tools", "Practice", "Community"],
+    views: 34,
+    updatedAt: "18 Sep",
+    createdAt: "25 Jan",
+    isPinned: false,
+    isArchived: false
+},
+
+{
+    id: 11,
+    logo: canuseLogo,
+    title: "Can I use",
+    url: "caniuse.com",
+    description: "Support tables for HTML5, CSS3, etc. Check browser compatibility for web technologies.",
+    tags: ["Tools", "Reference", "Compatibility"],
+    views: 67,
+    updatedAt: "20 Sep",
+    createdAt: "20 Jan",
+    isPinned: false,
+    isArchived: false
+},
+
+{
+    id: 12,
+    logo: cssgridgardenLogo,
+    title: "CSS Grid Garden",
+    url: "cssgridgarden.com",
+    description: "A game for learning CSS grid layout. Grow your carrot garden by writing CSS grid code.",
+    tags: ["CSS", "Practice", "Layout"],
+    views: 8,
+    updatedAt: "15 Jul",
+    createdAt: "01 Feb",
+    isPinned: false,
+    isArchived: false
+},
+
+{
+    id: 13,
+    logo: csstrickLogo,
+    title: "CSS-Tricks",
+    url: "css-tricks.com",
+    description: "Daily articles about CSS, HTML, JavaScript, and all things related to web design and development.",
+    tags: ["CSS", "Tutorial", "Tips"],
+    views: 89,
+    updatedAt: "22 Sep",
+    createdAt: "12 Jan",
+    isPinned: false,
+    isArchived: false
+},
+
+{
+    id: 14,
+    logo: stackoverflowLogo,
+    title: "Stack Overflow",
+    url: "stackoverflow.com",
+    description: "The largest, most trusted online community for developers to learn, share their knowledge, and build their careers.",
+    tags: ["Community", "Reference", "Tips"],
+    views: 234,
+    updatedAt: "24 Sep",
+    createdAt: "08 Jan",
+    isPinned: false,
+    isArchived: false
+},
+
+{
+    id: 15,
+    logo: smeshLogo,
+    title: "Smashing Magazine",
+    url: "smashingmagazine.com",
+    description: "For web designers and developers. Articles on CSS, JavaScript, front-end, UX, design systems, and more.",
+    tags: ["Design", "Tutorial", "Performance"],
+    views: 23,
+    updatedAt: "10 Sep",
+    createdAt: "18 Jan",
+    isPinned: false,
+    isArchived: false
+},  
+
+{
+    id: 16,
+    logo: githabLogo,
+    title: "GitHub",
+    url: "github.com",
+    description: "Where the world builds software. Millions of developers and companies build, ship, and maintain their software on GitHub.",
+    tags: ["Tools", "Community", "Git"],
+    views: 198,
+    updatedAt: "24 Sep",
+    createdAt: "05 Jan",
+    isPinned: false,
+    isArchived: false
+}
+]);
+
+return (
         <main className={styles.mainContent}>
             <div className={styles.bookmarkHeader}>
                 <h2 className={styles.title}>All Bookmarks</h2>
@@ -76,12 +254,9 @@ function MainContent() {
                 <span> Sort by</span>
                 </button>
             </div>
-            <div className={styles.bookmarkGrid}>
-                <BookmarkCard bookmark={bookmark1} />
-                <BookmarkCard bookmark={bookmark2} />
-                <BookmarkCard bookmark={bookmark3} />
-                <BookmarkCard bookmark={bookmark4} />
-            </div>
+
+            <BookmarkList bookmarks={bookmarks} />
+        
         </main>
     )
 }
