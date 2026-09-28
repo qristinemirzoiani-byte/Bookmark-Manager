@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import styles from './Sidebar.module.css';
 import logoImg from '../assets/Bookmark.png';

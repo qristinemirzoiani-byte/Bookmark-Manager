@@ -21,7 +21,7 @@ import stackoverflowLogo from '../assets/stackoverflowLogo.png';
 import smeshLogo from '../assets/smeshLogo.png';
 import githabLogo from '../assets/GithubLogo.png';
 
-function MainContent() {
+function MainContent({ currentView }) {
     const [bookmarks, setBookmarks] = useState([ 
     {
     id: 1,
@@ -244,18 +244,47 @@ function MainContent() {
 }
 ]);
 
+const handleTogglePin = (id) => {
+    setBookmarks(
+        bookmarks.map((bookmark) =>
+            bookmark.id === id
+            ? { ...bookmark, isPinned: !bookmark.isPinned }
+            : bookmark
+        )
+    );
+};
+
+const handleToggleArchive = (id) => {
+    setBookmarks(
+        bookmarks.map((bookmark) =>
+            bookmark.id === id
+            ? { ...bookmark, isArchived: !bookmark.isArchived }
+            : bookmark
+        )
+    );
+};
+
+const visibleBookmarks = bookmarks.filter((bookmark) =>
+ currentView === 'archived' ? bookmark.isArchived : !bookmark.isArchived);
+
 return (
         <main className={styles.mainContent}>
             <div className={styles.bookmarkHeader}>
-                <h2 className={styles.title}>All Bookmarks</h2>
+                <h2 className={styles.title}> {currentView === 'archived'
+                    ? 'Archived' : 'All Bookmarks'}</h2>
 
-                <button className={styles.sortButton}>
+                <button className={styles.sortButton}
+                // onClick={() => setBookmarks([])}
+                >
                     <img src={switchVertical} alt="Sort" className={styles.sortIcon} />
                 <span> Sort by</span>
                 </button>
             </div>
 
-            <BookmarkList bookmarks={bookmarks} />
+            <BookmarkList 
+            bookmarks={visibleBookmarks} 
+            onTogglePin={handleTogglePin} 
+            onToggleArchive={handleToggleArchive}/>
         
         </main>
     )
