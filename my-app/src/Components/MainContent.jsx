@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './MainContent.module.css';
 import BookmarkList from './BookmarkList';
 import BookmarkCard from './BookmarkCard';
+import AddBookmarkModal from './AddBookmarkModal';
 import switchVertical from '../assets/switchVertical.png';
 
 import frontedlogo from '../assets/FrontedLogo.png';
@@ -20,8 +21,10 @@ import csstrickLogo from '../assets/CSStrickLogo.png';
 import stackoverflowLogo from '../assets/stackoverflowLogo.png';
 import smeshLogo from '../assets/smeshLogo.png';
 import githabLogo from '../assets/GithubLogo.png';
+import zombeLogo from '../assets/Logo.png';
+import flexfrogLogo from '../assets/flexboxLogo.png'
 
-function MainContent({ currentView }) {
+function MainContent({ currentView, isModalOpen, onCloseModal }) {
     const [bookmarks, setBookmarks] = useState([ 
     {
     id: 1,
@@ -241,6 +244,33 @@ function MainContent({ currentView }) {
     createdAt: "05 Jan",
     isPinned: false,
     isArchived: false
+},
+{
+    id:17,
+    logo: zombeLogo,
+    title: "Flexbox Zombies",
+    url: "mastery.games/flexboxzombies",
+    description: "Master flexbox layout in CSS by playing a survival game. Use flexbox to position your crossbow and survive the zombie apocalypse.",
+    tags: ["CSS", "Practice", "Layout"],
+    views: 6,
+    updatedAt: "18 Apr",
+    createdAt:"22 Feb",
+    isPinned:false,
+    isArchived: false
+
+},
+{
+    id:18,
+    logo: flexfrogLogo,
+    title: "Flexbox Froggy",
+    url: "flexboxfroggy.com",
+    description: "A game where you help Froggy and friends by writing CSS flexbox code.",
+    tags: ["CSS", "Practice", "Layout"],
+    views: 12,
+    updatedAt: "12 Jun",
+    createdAt:"01 Feb",
+    isPinned:false,
+    isArchived: false
 }
 ]);
 
@@ -264,6 +294,24 @@ const handleToggleArchive = (id) => {
     );
 };
 
+const handleAddBookmark = (formData) => {
+    const newBookmark = {
+        id:Date.now(),
+        logo: webLogo,
+        title: formData.title,
+        url: formData.url,
+        description: formData.description,
+        tags: formData.tags.split(',').map((tag)=>tag.trim()).filter(Boolean),
+        views: 0,
+        updatedAt: "Just now",
+        createdAt: new Date().toLocaleDateString(en-GB,{
+            dey:'2-digit', month: 'short' }),
+        isPinned: false,
+        isArchived: false
+    };
+    setBookmarks([newBookmark, ...bookmarks]);
+};
+
 const visibleBookmarks = bookmarks.filter((bookmark) =>
  currentView === 'archived' ? bookmark.isArchived : !bookmark.isArchived);
 
@@ -285,6 +333,11 @@ return (
             bookmarks={visibleBookmarks} 
             onTogglePin={handleTogglePin} 
             onToggleArchive={handleToggleArchive}/>
+            {isModalOpen &&(
+                <AddBookmarkModal
+                onClose={onCloseModal}
+                onAddBookmark= {handleAddBookmark}/>
+            )}
         
         </main>
     )

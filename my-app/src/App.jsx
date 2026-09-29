@@ -5,8 +5,9 @@ import MainContent from './Components/MainContent';
 import './App.css';
 
 function App() {
-  // 👇 აი ეს ცვლადი იმახსოვრებს, 'home'-ზე ვართ თუ 'archived'-ზე!
+  
   const [currentView, setCurrentView] = useState('home');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="app-layout">
@@ -17,9 +18,12 @@ function App() {
         onSelectTag={(tag) => console.log(tag)} 
       />
       <div className="main-wrapper">
-        <Header />
-        {/* 👇 MainContent-ს გადავეცით currentView! */}
-        <MainContent currentView={currentView} />
+        <Header onOpenModal={() => setIsModalOpen(true)} />
+        <MainContent 
+        currentView={currentView}
+        isModalOpen={isModalOpen}
+        onCloseModal={() => setIsModalOpen(false)}
+        />
       </div>
     </div>
   );

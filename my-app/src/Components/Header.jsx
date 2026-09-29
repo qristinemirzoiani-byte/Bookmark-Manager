@@ -4,7 +4,7 @@ import searchIcon from '../assets/SearchIcon.png';
 import plusIcon from '../assets/IconPlus.png';
 import avatarImg from '../assets/Avatar.png';
 
-function Header (){
+function Header ({onOpenModal}) {
     return (
         <header className={styles.header}>
             <div className={styles.searchWrapper}>
@@ -16,7 +16,7 @@ function Header (){
                 />
             </div>
             <div className={styles.actions}>
-                <button className={styles.addButton}>
+                <button className={styles.addButton} onClick={onOpenModal}>
                     <img src={plusIcon} alt="Add" className={styles.addIcon} />
                     <span>Add Bookmark</span>
                 </button>

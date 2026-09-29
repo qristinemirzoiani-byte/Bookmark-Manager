@@ -53,7 +53,6 @@ function Sidebar({ currentView, onSelectView, selectedTag, onSelectTag }) {
         </button>
         </div>
 
-      {/* 2. TAGS - თეგების სია */}
         <div className={styles.tagsSection}>
         <span className={styles.tagsHeader}>TAGS</span>
 
