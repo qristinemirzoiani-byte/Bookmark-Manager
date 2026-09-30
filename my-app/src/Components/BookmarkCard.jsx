@@ -7,7 +7,7 @@ import clockIcon from '../assets/clockIqon.png';
 import calendarIcon from '../assets/calendarIqon.png';
 import pinIcon from '../assets/pinIqon.png';
 
-function BookmarkCard({ bookmark, onTogglePin, onToggleArchive }) {
+function BookmarkCard({ bookmark, onTogglePin, onToggleArchive, onDelete }) {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -39,6 +39,17 @@ function BookmarkCard({ bookmark, onTogglePin, onToggleArchive }) {
                                 }}
                             >
                                 {bookmark.isArchived ? 'Restore' : 'Archive'}
+                            </button>
+
+                            
+                            <button
+                                className={styles.dropdownItem}
+                                onClick={() => {
+                                    onDelete(bookmark.id);
+                                    setMenuOpen(false);
+                                }}
+                            >
+                                Delete
                             </button>
                         </div>
                     )}

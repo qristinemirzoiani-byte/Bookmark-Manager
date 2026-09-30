@@ -114,3 +114,13 @@
     .submitBtn:hover {
     background-color: #127a6d;
     }
+
+        .inputError {
+    border-color: #ff6b6b !important;
+    }
+
+    .errorText {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: 2px;
+    }

@@ -9,6 +9,10 @@ function AddBookmarkModal({ onClose, onAddBookmark }) {
     tags: '',
 });
 
+// eror state
+const [errors, setErrors]= useState({});
+
+
   // 2. onChange function
     const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,8 +26,25 @@ function AddBookmarkModal({ onClose, onAddBookmark }) {
     const handleSubmit = (e) => {
     e.preventDefault(); 
 
-    if (!form.title.trim() || !form.url.trim()) return;
+    const newErrors={};
 
+    if (!form.title.trim()){
+        newErrors.title= 'Title is required';
+    }
+    if (!form.url.trim() || !form.url.includes('.')){
+        newErrors.url='Please enter a valid URL';
+    }
+    if (!form.description.trim()){
+        newErrors.description='Description is required';
+    }
+    if (!form.tags.trim()){
+        newErrors.tags='at least one tag is required';
+    }
+    if(Object.keys(newErrors).length>0){
+        setErrors(newErrors);
+        return;
+    }
+    
     onAddBookmark(form); 
     onClose();
     };
@@ -52,8 +73,10 @@ function AddBookmarkModal({ onClose, onAddBookmark }) {
                 placeholder="e.g. Frontend Mentor"
                 value={form.title}
                 onChange={handleChange}
-                required
+                className={errors.title ? styles.inputError : ''}
                 />
+                {errors.title && <span className={styles.errorText}>
+                    {errors.title}</span>}
             </div>
 
             <div className={styles.field}>
@@ -64,8 +87,10 @@ function AddBookmarkModal({ onClose, onAddBookmark }) {
                 placeholder="e.g. frontendmentor.io"
                 value={form.url}
                 onChange={handleChange}
-                required
+                className={errors.url ? styles.inputError : ''}
                 />
+                {errors.url && <span className={styles.errorText}>{errors.url}</span>}
+                
             </div>
 
             <div className={styles.field}>
@@ -76,8 +101,11 @@ function AddBookmarkModal({ onClose, onAddBookmark }) {
                 value={form.description}
                 onChange={handleChange}
                 rows={3}
-                required
+                className={errors.description ? styles.inputError : ''}
                 />
+                {errors.description && (
+                <span className={styles.errorText}>{errors.description}</span>
+                )}
             </div>
 
             <div className={styles.field}>
@@ -88,8 +116,9 @@ function AddBookmarkModal({ onClose, onAddBookmark }) {
                 placeholder="e.g. Practice, Learning, Community"
                 value={form.tags}
                 onChange={handleChange}
-                required
+                className={errors.tags ? styles.inputError : ''}
                 />
+                {errors.tags && <span className={styles.errorText}>{errors.tags}</span>}
             </div>
 
             <div className={styles.actions}>

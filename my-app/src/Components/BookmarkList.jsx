@@ -4,7 +4,7 @@ import EmptyData from './EmptyData';
 import styles from './BookmarkList.module.css';
 
 
-function BookmarkList({ bookmarks, onTogglePin, onToggleArchive }) {
+function BookmarkList({ bookmarks, onTogglePin, onToggleArchive, onDelete }) {
     if (bookmarks.length === 0) {
         return <EmptyData />;
     }
@@ -16,7 +16,9 @@ function BookmarkList({ bookmarks, onTogglePin, onToggleArchive }) {
                 <BookmarkCard key={bookmark.id}
                 bookmark={bookmark} 
                 onTogglePin={onTogglePin}
-                onToggleArchive={onToggleArchive}/>
+                onToggleArchive={onToggleArchive}
+                onDelete={onDelete}
+                />
             ))}
         </div>
     );

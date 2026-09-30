@@ -293,6 +293,9 @@ const handleToggleArchive = (id) => {
         )
     );
 };
+const handleDeleteBookmark = (id) => {
+    setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
+};
 
 const handleAddBookmark = (formData) => {
     const newBookmark = {
@@ -332,7 +335,9 @@ return (
             <BookmarkList 
             bookmarks={visibleBookmarks} 
             onTogglePin={handleTogglePin} 
-            onToggleArchive={handleToggleArchive}/>
+            onToggleArchive={handleToggleArchive}
+            onDelete={handleDeleteBookmark}
+            />
             {isModalOpen &&(
                 <AddBookmarkModal
                 onClose={onCloseModal}
