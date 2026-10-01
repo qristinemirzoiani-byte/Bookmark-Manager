@@ -4,7 +4,7 @@ import EmptyData from './EmptyData';
 import styles from './BookmarkList.module.css';
 
 
-function BookmarkList({ bookmarks, onTogglePin, onToggleArchive, onDelete }) {
+function BookmarkList({ bookmarks, onTogglePin, onToggleArchive, onDelete, onEdit }) {
     if (bookmarks.length === 0) {
         return <EmptyData />;
     }
@@ -18,6 +18,7 @@ function BookmarkList({ bookmarks, onTogglePin, onToggleArchive, onDelete }) {
                 onTogglePin={onTogglePin}
                 onToggleArchive={onToggleArchive}
                 onDelete={onDelete}
+                onEdit={onEdit}
                 />
             ))}
         </div>

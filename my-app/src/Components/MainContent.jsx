@@ -273,6 +273,7 @@ function MainContent({ currentView, isModalOpen, onCloseModal }) {
     isArchived: false
 }
 ]);
+const [editingBookmark, setEditingBookmark] = useState(null);
 
 const handleTogglePin = (id) => {
     setBookmarks(
@@ -299,22 +300,40 @@ const handleDeleteBookmark = (id) => {
 
 const handleAddBookmark = (formData) => {
     const newBookmark = {
-        id:Date.now(),
+        id: Date.now(),
         logo: webLogo,
         title: formData.title,
         url: formData.url,
         description: formData.description,
-        tags: formData.tags.split(',').map((tag)=>tag.trim()).filter(Boolean),
+        tags: formData.tags.split(',').map((tag) => tag.trim()).filter(Boolean),
         views: 0,
         updatedAt: "Just now",
-        createdAt: new Date().toLocaleDateString(en-GB,{
-            dey:'2-digit', month: 'short' }),
+        createdAt: new Date().toLocaleDateString('en-GB', {
+            day: '2-digit', month: 'short'
+        }),
         isPinned: false,
         isArchived: false
     };
     setBookmarks([newBookmark, ...bookmarks]);
 };
 
+
+const handleEditBookmark = (formData) => {
+    setBookmarks(
+        bookmarks.map((bookmark) =>
+            bookmark.id === editingBookmark.id
+                ? {
+                        ...bookmark,
+                        title: formData.title,
+                        url: formData.url,
+                        description: formData.description,
+                        tags: formData.tags.split(',').map((tag) => tag.trim()).filter(Boolean),
+                    }
+                : bookmark
+        )
+    );
+    setEditingBookmark(null);
+};
 const visibleBookmarks = bookmarks.filter((bookmark) =>
  currentView === 'archived' ? bookmark.isArchived : !bookmark.isArchived);
 
@@ -325,7 +344,7 @@ return (
                     ? 'Archived' : 'All Bookmarks'}</h2>
 
                 <button className={styles.sortButton}
-                // onClick={() => setBookmarks([])}
+                
                 >
                     <img src={switchVertical} alt="Sort" className={styles.sortIcon} />
                 <span> Sort by</span>
@@ -333,15 +352,22 @@ return (
             </div>
 
             <BookmarkList 
-            bookmarks={visibleBookmarks} 
-            onTogglePin={handleTogglePin} 
-            onToggleArchive={handleToggleArchive}
-            onDelete={handleDeleteBookmark}
+                bookmarks={visibleBookmarks} 
+                onTogglePin={handleTogglePin} 
+                onToggleArchive={handleToggleArchive}
+                onDelete={handleDeleteBookmark}
+                onEdit={(bookmark) => setEditingBookmark(bookmark)}
             />
-            {isModalOpen &&(
+
+            {(isModalOpen || editingBookmark) && (
                 <AddBookmarkModal
-                onClose={onCloseModal}
-                onAddBookmark= {handleAddBookmark}/>
+                    editingBookmark={editingBookmark}
+                    onClose={() => {
+                        onCloseModal();
+                        setEditingBookmark(null);
+                    }}
+                    onSaveBookmark={editingBookmark ? handleEditBookmark : handleAddBookmark}
+                />
             )}
         
         </main>
