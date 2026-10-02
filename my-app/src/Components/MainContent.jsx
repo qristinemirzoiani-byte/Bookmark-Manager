@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from './MainContent.module.css';
 import BookmarkList from './BookmarkList';
 import BookmarkCard from './BookmarkCard';
-import AddBookmarkModal from './AddBookmarkModal';
+import Modal from './Modal';
+import BookmarkForm from './BookmarkForm';
 import switchVertical from '../assets/switchVertical.png';
 
 import frontedlogo from '../assets/FrontedLogo.png';
@@ -24,7 +25,7 @@ import githabLogo from '../assets/GithubLogo.png';
 import zombeLogo from '../assets/Logo.png';
 import flexfrogLogo from '../assets/flexboxLogo.png'
 
-function MainContent({ currentView, isModalOpen, onCloseModal }) {
+function MainContent({ currentView, isModalOpen, onCloseModal, searchTerm }) {
     const [bookmarks, setBookmarks] = useState([ 
     {
     id: 1,
@@ -334,8 +335,17 @@ const handleEditBookmark = (formData) => {
     );
     setEditingBookmark(null);
 };
-const visibleBookmarks = bookmarks.filter((bookmark) =>
- currentView === 'archived' ? bookmark.isArchived : !bookmark.isArchived);
+const visibleBookmarks = bookmarks
+    .filter((bookmark) =>
+        currentView === 'archived' ? bookmark.isArchived : !bookmark.isArchived
+    )
+    .filter((bookmark) => {
+        if (!searchTerm.trim()) return true;
+        const query = searchTerm.toLowerCase();
+        const matchesTitle = bookmark.title.toLowerCase().includes(query);
+        const matchesDescription = bookmark.description.toLowerCase().includes(query);
+        return matchesTitle || matchesDescription;
+    });
 
 return (
         <main className={styles.mainContent}>
@@ -351,23 +361,40 @@ return (
                 </button>
             </div>
 
-            <BookmarkList 
-                bookmarks={visibleBookmarks} 
-                onTogglePin={handleTogglePin} 
-                onToggleArchive={handleToggleArchive}
-                onDelete={handleDeleteBookmark}
-                onEdit={(bookmark) => setEditingBookmark(bookmark)}
-            />
+
+        {visibleBookmarks.length === 0 ? (
+        <div className={styles.emptyState}>
+            <p className={styles.emptyTitle}>No bookmarks found</p>
+            <p className={styles.emptyText}>
+            We couldn't find any results matching "{searchTerm}".
+            </p>
+    </div>
+) : (
+    <BookmarkList 
+        bookmarks={visibleBookmarks} 
+        onTogglePin={handleTogglePin} 
+        onToggleArchive={handleToggleArchive}
+        onDelete={handleDeleteBookmark}
+        onEdit={(bookmark) => setEditingBookmark(bookmark)}
+    />
+)}
 
             {(isModalOpen || editingBookmark) && (
-                <AddBookmarkModal
-                    editingBookmark={editingBookmark}
+                <Modal
                     onClose={() => {
                         onCloseModal();
                         setEditingBookmark(null);
                     }}
-                    onSaveBookmark={editingBookmark ? handleEditBookmark : handleAddBookmark}
-                />
+                >
+                    <BookmarkForm
+                        editingBookmark={editingBookmark}
+                        onClose={() => {
+                            onCloseModal();
+                            setEditingBookmark(null);
+                        }}
+                        onSaveBookmark={editingBookmark ? handleEditBookmark : handleAddBookmark}
+                    />
+                </Modal>
             )}
         
         </main>

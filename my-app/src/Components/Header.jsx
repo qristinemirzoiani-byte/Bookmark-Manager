@@ -4,15 +4,17 @@ import searchIcon from '../assets/SearchIcon.png';
 import plusIcon from '../assets/IconPlus.png';
 import avatarImg from '../assets/Avatar.png';
 
-function Header ({onOpenModal}) {
+function Header ({onOpenModal, searchTerm, onSearchChange}) {
     return (
         <header className={styles.header}>
             <div className={styles.searchWrapper}>
                 <img src={searchIcon} alt="Search" className={styles.searchIcon} />
-                <input type="text"
+                <input 
+                type="text"
                 placeholder="Search by title..."
                 className={styles.searchInput}
-                disabled
+                value={searchTerm}
+                onChange={(e) => onSearchChange(e.target.value)}
                 />
             </div>
             <div className={styles.actions}>

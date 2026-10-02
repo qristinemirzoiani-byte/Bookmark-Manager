@@ -8,6 +8,7 @@ function App() {
   
   const [currentView, setCurrentView] = useState('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   return (
     <div className="app-layout">
@@ -18,11 +19,16 @@ function App() {
         onSelectTag={(tag) => console.log(tag)} 
       />
       <div className="main-wrapper">
-        <Header onOpenModal={() => setIsModalOpen(true)} />
+        <Header 
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            onOpenModal={() => setIsModalOpen(true)} 
+        />
         <MainContent 
         currentView={currentView}
         isModalOpen={isModalOpen}
         onCloseModal={() => setIsModalOpen(false)}
+        searchTerm={searchTerm}
         />
       </div>
     </div>
