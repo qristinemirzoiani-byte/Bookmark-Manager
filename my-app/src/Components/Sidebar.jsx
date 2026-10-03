@@ -9,6 +9,7 @@ import archiveIcon from '../assets/archive.png';
 function Sidebar({ currentView, onSelectView, selectedTag, onSelectTag }) {
 
     const tagsData = [
+    {name: 'All'},    
     { name: 'AI', count: 1 },
     { name: 'Community', count: 5 },
     { name: 'Compatibility', count: 1 },
@@ -56,20 +57,34 @@ function Sidebar({ currentView, onSelectView, selectedTag, onSelectTag }) {
         <div className={styles.tagsSection}>
         <span className={styles.tagsHeader}>TAGS</span>
 
-        <div className={styles.tagsList}>
-            {tagsData.map((tag) => (
-            <div
-                key={tag.name}
-                className={`${styles.tagRow} ${selectedTag === tag.name ? styles.selected : ''}`}
-                onClick={() => onSelectTag(selectedTag === tag.name ? null : tag.name)}
-            >
-                <div className={styles.tagLeft}>
-                <div className={styles.checkboxSquare} />
-                <span>{tag.name}</span>
-                </div>
-                <span className={styles.tagCount}>{tag.count}</span>
-            </div>
-            ))}
+       <div className={styles.tagsList}>
+            {tagsData.map((tag) => {
+                const isSelected = tag.name === 'All' 
+                    ? (!selectedTag || selectedTag === 'All') 
+                    : selectedTag === tag.name;
+
+                return (
+                    <div
+                        key={tag.name}
+                        className={`${styles.tagRow} ${isSelected ? styles.selected : ''}`}
+                        onClick={() => {
+                            if (tag.name === 'All') {
+                                onSelectTag(null); 
+                            } else {
+                                onSelectTag(selectedTag === tag.name ? null : tag.name);
+                            }
+                        }}
+                    >
+                        <div className={styles.tagLeft}>
+                            <div className={styles.checkboxSquare} />
+                            <span>{tag.name}</span>
+                        </div>
+                        {tag.count !== undefined && (
+                            <span className={styles.tagCount}>{tag.count}</span>
+                        )}
+                    </div>
+                );
+            })}
         </div>
         </div>
     </aside>

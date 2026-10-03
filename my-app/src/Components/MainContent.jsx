@@ -25,7 +25,7 @@ import githabLogo from '../assets/GithubLogo.png';
 import zombeLogo from '../assets/Logo.png';
 import flexfrogLogo from '../assets/flexboxLogo.png'
 
-function MainContent({ currentView, isModalOpen, onCloseModal, searchTerm }) {
+function MainContent({ currentView, isModalOpen, onCloseModal, searchTerm,selectedTag }) {
     const [bookmarks, setBookmarks] = useState([ 
     {
     id: 1,
@@ -340,11 +340,19 @@ const visibleBookmarks = bookmarks
         currentView === 'archived' ? bookmark.isArchived : !bookmark.isArchived
     )
     .filter((bookmark) => {
+        if (!selectedTag) return true;
+        return bookmark.tags && bookmark.tags.includes(selectedTag);
+    })
+    .filter((bookmark) => {
         if (!searchTerm.trim()) return true;
         const query = searchTerm.toLowerCase();
         const matchesTitle = bookmark.title.toLowerCase().includes(query);
         const matchesDescription = bookmark.description.toLowerCase().includes(query);
         return matchesTitle || matchesDescription;
+    })
+    .sort ((a,b) =>{
+        if (a.isPinned === b.isPinned)return 0;
+        return a.isPinned ? -1 : 1
     });
 
 return (
