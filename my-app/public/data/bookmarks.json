@@ -92,7 +92,7 @@
     },
     {
         "id": 8,
-        "logo": "/assets/JavaScriptLogo.png",
+        "logo": "/assets/JavascriptLogo.png",
         "title": "JavaScript.info",
         "url": "javascript.info",
         "description": "The Modern JavaScript Tutorial. How it’s done now. From the basics to advanced topics with simple, but detailed explanations.",
@@ -105,7 +105,7 @@
     },
     {
         "id": 9,
-        "logo": "/assets/FreeCodeLogo.png",
+        "logo": "/assets/FreecodeLogo.png",
         "title": "FreeCodeCamp",
         "url": "freecodecamp.org",
         "description": "Learn to code for free. Build projects. Earn certifications. An open source community that helps you learn to code with free online courses and certifications.",

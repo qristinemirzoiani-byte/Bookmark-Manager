@@ -7,14 +7,32 @@ import BookmarkForm from './BookmarkForm';
 import switchVertical from '../assets/switchVertical.png';
 
 function MainContent({ currentView, isModalOpen, onCloseModal, searchTerm, selectedTag }) {
-    // 1. დავალების სამი state:
+    // 1. სამი state (Loading / Success / Error):
     const [bookmarks, setBookmarks] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     
     const [editingBookmark, setEditingBookmark] = useState(null);
 
-    useEffect(() => {
+    
+useEffect(() => {
+    const savedBookmarks = localStorage.getItem('bookmarks');
+
+    if (savedBookmarks) {
+        // if localStorage has data, parse it and set bookmarks
+        try {
+            setBookmarks(JSON.parse(savedBookmarks));
+            setIsLoading(false);
+        } catch (e) {
+            console.error("Error reading localStorage:", e);
+            fetchFromJSON();
+        }
+    } else {
+        // if localStorage is empty, fetch from JSON
+        fetchFromJSON();
+    }
+
+    function fetchFromJSON() {
         fetch('/data/bookmarks.json')
             .then((res) => {
                 if (!res.ok) {
@@ -24,13 +42,21 @@ function MainContent({ currentView, isModalOpen, onCloseModal, searchTerm, selec
             })
             .then((data) => {
                 setBookmarks(data);
-                setIsLoading(false); 
+                setIsLoading(false);
             })
             .catch((err) => {
                 setError(err.message);
                 setIsLoading(false);
             });
-    }, []); 
+    }
+}, []);
+
+// 2. Refresh and save to localStorage
+useEffect(() => {
+    if (!isLoading) {
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    }
+}, [bookmarks, isLoading]);
 
     const handleTogglePin = (id) => {
         setBookmarks(
@@ -59,7 +85,7 @@ function MainContent({ currentView, isModalOpen, onCloseModal, searchTerm, selec
     const handleAddBookmark = (formData) => {
         const newBookmark = {
             id: Date.now(),
-            logo: "/assets/WebLogo.png", // 👈 ტექსტური ბმული
+            logo: "/assets/WebLogo.png",
             title: formData.title,
             url: formData.url,
             description: formData.description,
@@ -112,6 +138,55 @@ function MainContent({ currentView, isModalOpen, onCloseModal, searchTerm, selec
             return a.isPinned ? -1 : 1;
         });
 
+        const renderEmptyState = () => {
+        // if search term is present and no bookmarks match the search
+        if (searchTerm.trim()) {
+            return (
+                <div className={styles.emptyState}>
+                    <p className={styles.emptyTitle}>No bookmarks found</p>
+                    <p className={styles.emptyText}>
+                        We couldn't find any results matching "{searchTerm}".
+                    </p>
+                </div>
+            );
+        }
+
+        // if a specific tag is selected and there are no bookmarks with that tag
+        if (selectedTag) {
+            return (
+                <div className={styles.emptyState}>
+                    <p className={styles.emptyTitle}>No bookmarks found</p>
+                    <p className={styles.emptyText}>
+                        No bookmarks tagged with "{selectedTag}".
+                    </p>
+                </div>
+            );
+        }
+
+        // if archived view is selected and there are no archived bookmarks
+        if (currentView === 'archived') {
+            return (
+                <div className={styles.emptyState}>
+                    <p className={styles.emptyTitle}>No archived bookmarks</p>
+                    <p className={styles.emptyText}>
+                        Bookmarks you archive will appear here.
+                    </p>
+                </div>
+            );
+        }
+
+        // if no bookmarks at all:
+
+        return (
+            <div className={styles.emptyState}>
+                <p className={styles.emptyTitle}>No bookmarks yet</p>
+                <p className={styles.emptyText}>
+                    Click "Add Bookmark" to create your first bookmark!
+                </p>
+            </div>
+        );
+    };
+
     return (
         <main className={styles.mainContent}>
             <div className={styles.bookmarkHeader}>
@@ -125,13 +200,12 @@ function MainContent({ currentView, isModalOpen, onCloseModal, searchTerm, selec
                 </button>
             </div>
 
-            {visibleBookmarks.length === 0 ? (
-                <div className={styles.emptyState}>
-                    <p className={styles.emptyTitle}>No bookmarks found</p>
-                    <p className={styles.emptyText}>
-                        We couldn't find any results matching "{searchTerm}".
-                    </p>
-                </div>
+            {isLoading ? (
+                <p className={styles.loadingText}>Loading bookmarks...</p>
+            ) : error ? (
+                <p className={styles.errorText}>Something went wrong while loading bookmarks.</p>
+            ) : visibleBookmarks.length === 0 ? (
+                renderEmptyState()
             ) : (
                 <BookmarkList 
                     bookmarks={visibleBookmarks} 

@@ -14,7 +14,15 @@ function BookmarkCard({ bookmark, onTogglePin, onToggleArchive, onDelete,onEdit 
         <div className={styles.card}>
             <div className={styles.cardHeader}>
                 <div className={styles.siteInfo}>
-                    <img src={bookmark.logo} alt="site Logo" className={styles.logo} />
+                    <img 
+                        src={bookmark.logo} 
+                        alt={bookmark.title} 
+                        className={styles.logo}
+                        onError={(e) => {
+        // if not found foto teke some WebLogo:
+        e.target.src = "/assets/WebLogo.png"; 
+    }} 
+/>
                     <div>
                         <h3 className={styles.siteTitle}>{bookmark.title}</h3>
                         <span className={styles.siteUrl}>{bookmark.url}</span>

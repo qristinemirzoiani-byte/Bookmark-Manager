@@ -45,3 +45,245 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #2ee59d;
 }
+
+/* ==========================================================================
+   ☀️ LIGHT MODE - FIGMA PIXEL PERFECT (FINAL FIX)
+   ========================================================================== */
+
+
+body.light,
+.app-layout.light,
+.app-layout.light .main-wrapper {
+  background-color: #f4f6f8 !important;
+  color: #0f172a !important;
+}
+
+/* 2. SIDEBAR  */
+.app-layout.light aside {
+  background-color: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
+.app-layout.light aside [class*="logoText"] {
+  color: #001414 !important;
+}
+
+.app-layout.light aside [class*="navButton"] {
+  color: #64748b !important;
+  background: transparent !important;
+}
+
+.app-layout.light aside [class*="navButton"]:hover:not([class*="active"]) {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.app-layout.light aside [class*="navButton"][class*="active"] {
+  background-color: #ffffff !important;
+  border: 1.5px solid #004d40 !important;
+  color: #004d40 !important;
+}
+
+.app-layout.light aside [class*="tagsHeader"] {
+  color: #94a3b8 !important;
+}
+
+.app-layout.light aside [class*="tagRow"],
+.app-layout.light aside [class*="tagLeft"],
+.app-layout.light aside [class*="tagsList"] {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.app-layout.light aside [class*="tagRow"] {
+  color: #475569 !important;
+}
+
+.app-layout.light aside [class*="tagRow"]:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.app-layout.light aside [class*="tagRow"][class*="selected"] {
+  background-color: #e6f4f1 !important;
+  color: #004d40 !important;
+}
+
+.app-layout.light aside [class*="checkboxSquare"] {
+  border: 1.2px solid #cbd5e1 !important;
+  background-color: #ffffff !important;
+}
+
+.app-layout.light aside [class*="selected"] [class*="checkboxSquare"] {
+  background-color: #004d40 !important;
+  border-color: #004d40 !important;
+}
+
+.app-layout.light aside [class*="tagCount"] {
+  background-color: #f1f5f9 !important;
+  color: #64748b !important;
+  border: none !important;
+}
+
+/* 3. MAIN HEADER, TITLE & SORT BY BUTTON */
+.app-layout.light main h2,
+.app-layout.light main [class*="title"] {
+  color: #0f172a !important;
+}
+
+/* ✨ Sort by */
+.app-layout.light main [class*="sortButton"] {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  padding: 6px 14px !important;
+  color: #4c5c59 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.app-layout.light main [class*="sortIcon"] {
+  filter: brightness(0) opacity(0.7) !important;
+}
+
+/* 4. BOOKMARK CARDS  */
+.app-layout.light [class*="card"] {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* ❌ CARD HEADER  */
+.app-layout.light [class*="cardHeader"] {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.app-layout.light [class*="siteTitle"] {
+  color: #0f172a !important;
+}
+
+.app-layout.light [class*="siteUrl"] {
+  color: #64748b !important;
+}
+
+.app-layout.light [class*="description"] {
+  color: #475569 !important;
+}
+
+
+.app-layout.light [class*="moreButton"] {
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  background-color: #ffffff !important;
+  padding: 4px !important;
+}
+
+.app-layout.light [class*="dotsIcon"] {
+  filter: brightness(0) opacity(0.6) !important;
+}
+
+/* CARD TAGS */
+.app-layout.light [class*="card"] [class*="tags"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.app-layout.light [class*="card"] span[class*="tag"] {
+  background-color: #f4f6f8 !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 3px 8px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  display: inline-block !important;
+}
+
+/* ❌ CARD FOOTER  */
+.app-layout.light [class*="cardFooter"] {
+  border: none !important;
+  border-top: 1px solid #f1f5f9 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 12px 0 0 0 !important;
+}
+
+.app-layout.light [class*="statItem"] {
+  color: #94a3b8 !important;
+}
+
+.app-layout.light [class*="statIcon"],
+.app-layout.light [class*="pinIcon"]:not([class*="pinned"]) {
+  filter: brightness(0) opacity(0.4) !important;
+}
+
+/* 5. TOP NAVBAR & SEARCH */
+.app-layout.light header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.app-layout.light [class*="searchWrapper"] {
+  background-color: #ffffff !important;
+  border: 1.5px solid #004d40 !important;
+  border-radius: 8px !important;
+}
+
+.app-layout.light [class*="searchInput"] {
+  background-color: transparent !important;
+  color: #0f172a !important;
+}
+
+.app-layout.light [class*="searchInput"]::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* 6. AVATAR DROPDOWN */
+.app-layout.light header [class*="dropdownMenu"] {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.app-layout.light [class*="userName"] {
+  color: #0f172a !important;
+}
+
+.app-layout.light [class*="userEmail"] {
+  color: #64748b !important;
+}
+
+.app-layout.light [class*="themeLabel"],
+.app-layout.light [class*="logoutButton"] {
+  color: #4c5c59 !important;
+}
+
+.app-layout.light [class*="divider"] {
+  border-top: 1px solid #f1f5f9 !important;
+}
+
+.app-layout.light [class*="themeSwitch"] {
+  background-color: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.app-layout.light [class*="activeTheme"] {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
