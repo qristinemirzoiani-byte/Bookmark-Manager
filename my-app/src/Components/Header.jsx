@@ -6,10 +6,20 @@ import avatarImg from '../assets/Avatar.png';
 import themeIcon from '../assets/themeIcon.png';
 import logoutIcon from '../assets/logoutIcon.png';
 
-function Header ({onOpenModal, searchTerm, onSearchChange, theme, onSelectTheme}) {
+function Header ({onOpenModal, searchTerm, onSearchChange, theme, onSelectTheme, onToggleSidebar}) {
 const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     return (
         <header className={styles.header}>
+            {/* Hamburger Button */}
+            <button 
+            className={styles.hamburgerBtn} 
+            onClick={onToggleSidebar}
+            aria-label="Toggle Menu"
+        >
+            <span className={styles.hamburgerLine}></span>
+            <span className={styles.hamburgerLine}></span>
+            <span className={styles.hamburgerLine}></span>
+            </button>
             <div className={styles.searchWrapper}>
                 <img src={searchIcon} alt="Search" className={styles.searchIcon} />
                 <input 

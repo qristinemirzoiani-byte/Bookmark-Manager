@@ -7,8 +7,13 @@ import clockIcon from '../assets/clockIqon.png';
 import calendarIcon from '../assets/calendarIqon.png';
 import pinIcon from '../assets/pinIqon.png';
 
-function BookmarkCard({ bookmark, onTogglePin, onToggleArchive, onDelete,onEdit }) {
+function BookmarkCard({ bookmark, onTogglePin, onToggleArchive, onDelete, onEdit }) {
     const [menuOpen, setMenuOpen] = useState(false);
+
+    // ლინკის სწორი ფორმატირება (თუ https:// არ აქვს, დაუმატოს):
+    const formattedUrl = bookmark.url.startsWith('http://') || bookmark.url.startsWith('https://')
+        ? bookmark.url
+        : `https://${bookmark.url}`;
 
     return (
         <div className={styles.card}>
@@ -19,13 +24,28 @@ function BookmarkCard({ bookmark, onTogglePin, onToggleArchive, onDelete,onEdit 
                         alt={bookmark.title} 
                         className={styles.logo}
                         onError={(e) => {
-        // if not found foto teke some WebLogo:
-        e.target.src = "/assets/WebLogo.png"; 
-    }} 
-/>
+                            e.target.src = "/assets/WebLogo.png"; 
+                        }} 
+                    />
                     <div>
-                        <h3 className={styles.siteTitle}>{bookmark.title}</h3>
-                        <span className={styles.siteUrl}>{bookmark.url}</span>
+                        <a 
+                            href={formattedUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            style={{ textDecoration: 'none', color: 'inherit' }}
+                        >
+                            <h3 className={styles.siteTitle}>{bookmark.title}</h3>
+                        </a>
+
+                        <a 
+                            href={formattedUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className={styles.siteUrl}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            {bookmark.url}
+                        </a>
                     </div>
                 </div>
 
@@ -42,24 +62,33 @@ function BookmarkCard({ bookmark, onTogglePin, onToggleArchive, onDelete,onEdit 
                             <button
                                 className={styles.dropdownItem}
                                 onClick={() => {
-                                    onEdit(bookmark);
-                                    
+                                    onTogglePin(bookmark.id);
                                     setMenuOpen(false);
                                 }}
                             >
-                            Edit
+                                {bookmark.isPinned ? 'Unpin' : 'Pin'}
                             </button>
+
+                            <button
+                                className={styles.dropdownItem}
+                                onClick={() => {
+                                    onEdit(bookmark);
+                                    setMenuOpen(false);
+                                }}
+                            >
+                                Edit
+                            </button>
+
                             <button
                                 className={styles.dropdownItem}
                                 onClick={() => {
                                     onToggleArchive(bookmark.id);
                                     setMenuOpen(false);
-                                }}>
+                                }}
+                            >
                                 {bookmark.isArchived ? 'Restore' : 'Archive'}
                             </button>
 
-
-                            
                             <button
                                 className={styles.dropdownItem}
                                 onClick={() => {
@@ -102,12 +131,12 @@ function BookmarkCard({ bookmark, onTogglePin, onToggleArchive, onDelete,onEdit 
                     </div>
                 </div>
 
-                <button 
-                    className={`${styles.pinButton} ${bookmark.isPinned ? styles.pinned : ''}`}
-                    onClick={() => onTogglePin(bookmark.id)}
-                >
-                    <img src={pinIcon} alt="pin" className={styles.pinIcon} />
-                </button>
+                {/* Pinned Badge */}
+                {bookmark.isPinned && (
+                    <div className={styles.pinnedBadge} title="Pinned">
+                        <img src={pinIcon} alt="pinned" className={styles.pinIcon} />
+                    </div>
+                )}
             </div>
         </div>
     );

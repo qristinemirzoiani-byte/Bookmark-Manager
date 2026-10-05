@@ -12,7 +12,9 @@ function MainContent({ currentView, isModalOpen, onCloseModal, searchTerm, selec
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     
+    
     const [editingBookmark, setEditingBookmark] = useState(null);
+    const [sortBy, setSortBy] = useState('recent');
 
     
 useEffect(() => {
@@ -58,6 +60,7 @@ useEffect(() => {
     }
 }, [bookmarks, isLoading]);
 
+    // pin bookmark function
     const handleTogglePin = (id) => {
         setBookmarks(
             bookmarks.map((bookmark) =>
@@ -67,7 +70,8 @@ useEffect(() => {
             )
         );
     };
-
+    
+    // archive bookmark function
     const handleToggleArchive = (id) => {
         setBookmarks(
             bookmarks.map((bookmark) =>
@@ -77,11 +81,13 @@ useEffect(() => {
             )
         );
     };
-
+    
+    // delete bookmark function
     const handleDeleteBookmark = (id) => {
         setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
     };
-
+    
+    // adding bookmark function
     const handleAddBookmark = (formData) => {
         const newBookmark = {
             id: Date.now(),
@@ -100,7 +106,8 @@ useEffect(() => {
         };
         setBookmarks([newBookmark, ...bookmarks]);
     };
-
+    
+    // editing bookmark function
     const handleEditBookmark = (formData) => {
         setBookmarks(
             bookmarks.map((bookmark) =>
@@ -118,6 +125,11 @@ useEffect(() => {
         setEditingBookmark(null);
     };
 
+    // sorting function
+    const handleToggleSort = () => {
+        setSortBy((prev) => (prev === 'recent' ? 'title' : 'recent'));
+    };
+
     const visibleBookmarks = bookmarks
         .filter((bookmark) =>
             currentView === 'archived' ? bookmark.isArchived : !bookmark.isArchived
@@ -133,9 +145,16 @@ useEffect(() => {
             const matchesDescription = bookmark.description.toLowerCase().includes(query);
             return matchesTitle || matchesDescription;
         })
+
+        // sort bookmarks based on the selected sort option
         .sort((a, b) => {
-            if (a.isPinned === b.isPinned) return 0;
-            return a.isPinned ? -1 : 1;
+            if (a.isPinned !== b.isPinned) {
+                return a.isPinned ? -1 : 1;
+            }
+            if (sortBy === 'title') {
+                return a.title.localeCompare(b.title);
+            }
+            return b.id - a.id;
         });
 
         const renderEmptyState = () => {
@@ -194,7 +213,7 @@ useEffect(() => {
                     {currentView === 'archived' ? 'Archived' : 'All Bookmarks'}
                 </h2>
 
-                <button className={styles.sortButton}>
+                <button className={styles.sortButton} onClick={handleToggleSort} title={`Current: ${sortBy}`}>
                     <img src={switchVertical} alt="Sort" className={styles.sortIcon} />
                     <span>Sort by</span>
                 </button>

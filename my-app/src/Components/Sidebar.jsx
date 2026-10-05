@@ -6,7 +6,7 @@ import homeIcon from '../assets/IconHome.png';
 import archiveIcon from '../assets/archive.png'; 
 
 
-function Sidebar({ currentView, onSelectView, selectedTag, onSelectTag }) {
+function Sidebar({ currentView, onSelectView, selectedTag, onSelectTag, isOpen, onClose }) {
 
     const tagsData = [
     {name: 'All'},    
@@ -30,7 +30,7 @@ function Sidebar({ currentView, onSelectView, selectedTag, onSelectTag }) {
     ];
 
     return (
-    <aside className={styles.sidebar}>
+    <aside className={`${styles.sidebar} ${isOpen ? 'open' : ''}`}>
         <div className={styles.logo}>
             <img src={logoImg} alt="Bookmark Manager" className={styles.logoImage} />
                 <span className={styles.logoText}>Bookmark Manager</span>

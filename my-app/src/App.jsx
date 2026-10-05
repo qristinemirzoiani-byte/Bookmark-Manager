@@ -13,6 +13,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
@@ -25,20 +26,29 @@ function App() {
 
   return (
     <div className={`app-layout ${theme}`}>
-    <Sidebar 
-    currentView={currentView} 
-    onSelectView={setCurrentView} 
-    selectedTag={selectedTag} 
-    onSelectTag={setSelectedTag} 
-    
-/>
+     <Sidebar 
+        currentView={currentView} 
+        onSelectView={(view) => {
+          setCurrentView(view);
+          setIsSidebarOpen(false); // როცა დააჭერს, საიდბარი დაიხუროს
+        }} 
+        selectedTag={selectedTag} 
+        onSelectTag={(tag) => {
+          setSelectedTag(tag);
+          setIsSidebarOpen(false); 
+        }} 
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
+
       <div className="main-wrapper">
         <Header 
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-            onOpenModal={() => setIsModalOpen(true)}
-            theme={theme}
-            onSelectTheme={handleSelectTheme} 
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          onOpenModal={() => setIsModalOpen(true)}
+          theme={theme}
+          onSelectTheme={handleSelectTheme}
+          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
         />
         <MainContent 
         currentView={currentView}
